@@ -2,25 +2,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Task Manager</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudentTaskManager | TaskForge</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Student Task Manager</h1>
-        <p>Organize your daily study tasks</p>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">T</div>
+        <div>
+          <h2>TaskForge</h2>
+          <p>Student Task Manager</p>
+        </div>
+      </div>
 
-        <div class="input-area">
-            <input id="taskInput" placeholder="Enter your task">
-            <button onclick="addTask()">Add Task</button>
+      <p class="nav-heading">WORKSPACE</p>
+      <button class="nav-item active" data-view="dashboard">▦ Dashboard</button>
+      <button class="nav-item" data-view="week">▤ Weekly View</button>
+
+      <div class="sidebar-bottom">
+        <div class="side-note">
+          <span>✦</span>
+          <h3>Stay on track!</h3>
+          <p>Small steps every day lead to big results.</p>
+        </div>
+        <p class="copyright">TaskForge · Student Edition</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL WORKSPACE</p>
+          <h1 id="pageTitle">Dashboard</h1>
+          <p class="subtitle">Plan your week. Complete your goals.</p>
+        </div>
+        <button class="primary-btn" id="openTaskBtn">＋ Add Task</button>
+      </header>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-icon purple">▤</div>
+          <p>Total Tasks</p>
+          <h2 id="totalTasks">0</h2>
+          <span>All your tasks</span>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon orange">◷</div>
+          <p>Incomplete</p>
+          <h2 id="incompleteTasks">0</h2>
+          <span>Still to be done</span>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon green">✓</div>
+          <p>Completed</p>
+          <h2 id="completedTasks">0</h2>
+          <span>Tasks finished</span>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon blue">↗</div>
+          <p>Completion Rate</p>
+          <h2 id="completionRate">0%</h2>
+          <div class="progress-track">
+            <div id="completionBar" class="progress-fill"></div>
+          </div>
+        </article>
+      </section>
+
+      <section id="reminderBox" class="reminder-box" hidden>
+        <div class="reminder-icon">!</div>
+        <div class="reminder-content">
+          <h3>Incomplete task reminder</h3>
+          <p id="reminderText">You have tasks waiting to be completed.</p>
+        </div>
+        <button id="viewIncompleteBtn" class="text-btn">View tasks →</button>
+      </section>
+
+      <section id="dashboardView" class="content-card">
+        <div class="section-heading">
+          <div>
+            <h2>My Tasks</h2>
+            <p>Keep your study plan organized.</p>
+          </div>
+          <span id="taskCountLabel" class="count-pill">0 tasks</span>
         </div>
 
-        <h3>My Tasks</h3>
-        <ul id="taskList"></ul>
-        <p id="count">Completed: 0</p>
-    </div>
-    <script src="script.js"></script>
+        <div class="toolbar">
+          <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="incomplete">Incomplete</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+          </div>
+          <input id="searchInput" type="search" placeholder="Search tasks..." aria-label="Search tasks">
+        </div>
+
+        <div id="taskList" class="task-list"></div>
+
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">✦</div>
+          <h3>No tasks yet</h3>
+          <p>Add your first task and start organizing your week.</p>
+          <button class="primary-btn" id="emptyAddBtn">＋ Create a task</button>
+        </div>
+      </section>
+
+      <section id="weekView" class="content-card" hidden>
+        <div class="section-heading">
+          <div>
+            <h2>Your Weekly Plan</h2>
+            <p>Tasks arranged by day of the week.</p>
+          </div>
+          <span id="weekSummary" class="count-pill">0 tasks this week</span>
+        </div>
+        <div id="weeklyGrid" class="weekly-grid"></div>
+      </section>
+
+      <footer class="footer">
+        <span>Made for productive students ✦</span>
+        <span>Your tasks are saved in this browser.</span>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Add / Edit Task Modal -->
+  <div id="taskModal" class="modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <section class="modal-panel" role="dialog" aria-modal="true"
+      aria-labelledby="modalTitle">
+      <div class="modal-heading">
+        <div>
+          <p class="eyebrow">TASK DETAILS</p>
+          <h2 id="modalTitle">Create a Task</h2>
+          <p>Enter your task details below.</p>
+        </div>
+        <button id="closeModalBtn" class="close-btn" aria-label="Close">×</button>
+      </div>
+
+      <form id="taskForm">
+        <label for="taskName">Task Name <span>*</span></label>
+        <input id="taskName" name="taskName" type="text"
+          placeholder="e.g. Complete Python assignment" required maxlength="120">
+
+        <div class="form-row">
+          <div>
+            <label for="taskDay">Day</label>
+            <select id="taskDay" name="taskDay">
+              <option value="Monday" selected>Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+              <option value="Sunday">Sunday</option>
+            </select>
+          </div>
+          <div>
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority" name="taskPriority">
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="taskNotes">Notes <span class="optional">(optional)</span></label>
+        <textarea id="taskNotes" name="taskNotes" rows="3"
+          placeholder="Add a short description..."></textarea>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelTaskBtn" class="secondary-btn">Cancel</button>
+          <button type="submit" id="saveTaskBtn" class="primary-btn">Save Task</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
+
+
