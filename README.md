@@ -97,22 +97,41 @@ Steps:
 
 Note: Describe only the build, checkout, and test steps that are actually configured in your Jenkinsfile.
 
+
 ## 10. Screenshots and Evidence
 
-Add screenshots captured from your own project.
+The following screenshots provide evidence of the Student Task Manager project, Git/GitHub workflow, and Jenkins integration.
 
-| Screenshot | Description |
-|---|---|
-| SS-01 | Final website dashboard |
-| SS-02 | Add Task form |
-| SS-03 | Task completion and updated statistics |
-| SS-04 | Weekly View |
-| SS-05 | Project files in VS Code |
-| SS-06 | Updated README.md |
-| SS-07 | Git commit history |
-| SS-08 | GitHub repository |
-| SS-09 | Jenkins build status |
-| SS-10 | Jenkins Console Output |
+### SS-01: Final Website Dashboard
+![SS-01 Final Website Dashboard](Evidence/Screenshot%202026-10-18%20133854.png)
+
+### SS-02: Add Task Form
+![SS-02 Add Task Form](Evidence/Screenshot%202026-10-18%20134018.png)
+
+### SS-03: Task Completion and Updated Statistics
+![SS-03 Task Completion](Evidence/Screenshot%202026-10-18%20134043.png)
+
+### SS-04: Weekly View
+![SS-04 Weekly View](Evidence/Screenshot%202026-10-18%20134443.png)
+
+### SS-05: Updated README
+![SS-05 Updated README](Evidence/Screenshot%202026-10-18%20135836.png)
+
+### SS-06: Git Commit History
+![SS-06 Git Commit History](Evidence/Screenshot%202026-10-18%20140016.png)
+
+### SS-07: GitHub Repository
+![SS-07 GitHub Repository](Evidence/Screenshot%202026-10-18%20141030.png)
+
+### SS-08: Jenkins Build Status
+![SS-08 Jenkins Build Status](Evidence/Screenshot%202026-10-18%20141053.png)
+
+### SS-09: Jenkins Console Output
+![SS-09 Jenkins Console Output](Evidence/Screenshot%202026-10-18%20141128.png)
+
+### SS-10: Jenkins Pipeline
+![SS-10 Jenkins Pipeline](Evidence/Screenshot%202026-10-18%20141314.png)
+
 
 Create an `Evidence` folder to organize your screenshots.
 
@@ -126,5 +145,5 @@ This project provided practical experience in website development, version contr
 
 ## 13. References
 - Git: https://git-scm.com/doc
-- GitHub: https://docs.github.com/
-- Jenkins: https://www.jenkins.io/doc/
+- GitHub: https://github.com/Ambu2809/StudentTaskManager
+- Jenkins: http://localhost:8080/job/StudentTaskManager-Pipeline/
